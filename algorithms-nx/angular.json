@@ -1,0 +1,142 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "algorithms-nx": {
+      "root": "apps/algorithms-nx/",
+      "sourceRoot": "apps/algorithms-nx/src",
+      "projectType": "application",
+      "prefix": "algorithmsnx",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "sass"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/algorithms-nx",
+            "index": "apps/algorithms-nx/src/index.html",
+            "main": "apps/algorithms-nx/src/main.ts",
+            "polyfills": "apps/algorithms-nx/src/polyfills.ts",
+            "tsConfig": "apps/algorithms-nx/tsconfig.app.json",
+            "assets": [
+              "apps/algorithms-nx/src/favicon.ico",
+              "apps/algorithms-nx/src/assets"
+            ],
+            "styles": ["apps/algorithms-nx/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/algorithms-nx/src/environments/environment.ts",
+                  "with": "apps/algorithms-nx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "algorithms-nx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "algorithms-nx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "algorithms-nx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/algorithms-nx/tsconfig.app.json",
+              "apps/algorithms-nx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/algorithms-nx/jest.config.js",
+            "tsConfig": "apps/algorithms-nx/tsconfig.spec.json",
+            "setupFile": "apps/algorithms-nx/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "algorithms-nx-e2e": {
+      "root": "apps/algorithms-nx-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/algorithms-nx-e2e/cypress.json",
+            "tsConfig": "apps/algorithms-nx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "algorithms-nx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "algorithms-nx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/algorithms-nx-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {
+    "@nrwl/schematics:application": {
+      "style": "sass",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:library": {
+      "style": "sass"
+    }
+  },
+  "defaultProject": "algorithms-nx"
+}
